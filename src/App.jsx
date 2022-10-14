@@ -21,10 +21,15 @@ function App() {
   const showVenue = (id) => {
     fetch('https://sis.materdeicollege.com/api/venues/' + id)
       .then(res=>{
+        if(res.status!=200) {
+          throw Error("Fetch Error: " + res.statusText)
+        }
         return res.json()
       }).then(data=>{
         setSelectedVenue(data)
         setIsNoSelection(false)
+      }).catch(err=>{
+        alert(err.message)
       })
   }
 
